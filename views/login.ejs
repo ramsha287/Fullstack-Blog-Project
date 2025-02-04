@@ -1,0 +1,88 @@
+<%-include('partials/header') %>
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+    </head>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container{
+            margin-top: 80px;
+            background-color: rgba(3, 81, 91, 0.5);
+            backdrop-filter: blur(2px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 20px;
+            color: white;
+            height: 50vh;
+            box-shadow: 10px 10px 10px rgba(27, 110, 121, 0.5);
+        }
+
+        h1{
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            -webkit-text-stroke: 1px rgb(20, 84, 93);
+            
+        }
+
+        .contents{
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            gap: 10px;
+            font-size: 2rem;
+        }
+
+        input{
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            width: 350px;
+            background-color: rgba(171,214,225,0.5) ;
+            backdrop-filter: blur(0px);
+            border: 1px solid rgba(171,214,225,0.5);
+            color: black;
+        }
+
+        .button{
+            cursor: pointer;
+            background-color: rgba(3, 81, 91, 0.5);
+            color: white;
+            border: 2px solid rgba(3, 48, 54, 0.5);
+            border-radius: 5px;
+            padding: 8px;
+        }
+
+
+    </style>
+
+    <body>
+        <div class="container">
+            <h1>Login</h1>
+            <form action="/auth/login" method="post">
+                <div class="contents">
+                    <input  type="email" name="email" placeholder="Email">
+                    <input type="password" name="password" placeholder="Password">
+                    <input class="button" type="submit" value="Login" />
+                </div>
+
+            </form>
+        </div>
+
+    </body>
+
+    </html>
+
+    <%-include('partials/footer') %>

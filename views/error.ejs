@@ -1,0 +1,21 @@
+<%- include('partials/header',{ title: "Error" ,user:user} )%>
+
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+        <h1>Something went wrong</h1>
+        <p style="color: red">
+            <%= error %>
+        </p>
+        <div>
+            <% if (user) { %>
+                <a href="/user/profile">Go to profile</a>
+                <% } %>
+                <% if (!user) { %>
+                <a href="/">Go to home</a>
+                <% } %>
+
+        </div>
+    </div>
+
+
+    <%- include('partials/footer') %>

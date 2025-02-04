@@ -1,0 +1,128 @@
+<%- include('partials/header',{title:"Posts",user:user}) %>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-top: 10px;
+            /* Backup for margin collapse */
+            min-height: 100vh;
+            /* Maintain full viewport height */
+        }
+
+        /* Header containment */
+        header {
+            box-sizing: border-box;
+            padding: 0 20px;
+            max-width: 100vw;
+        }
+
+        /* Navbar alignment */
+        .nav {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Content container sync */
+        .posts-container {
+            max-width: 900px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+
+        .post {
+            background: rgba(170, 240, 253, 0.5);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .post h2 {
+            color: #034a5b;
+            margin-bottom: 10px;
+        }
+
+        .post p {
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .post img {
+            width: calc(33.33% - 10px);
+            max-width: 300px;
+            height: auto;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .no-posts {
+            text-align: center;
+            color: #777;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            /* Reduced from 20px */
+            padding: 40px 0;
+        }
+
+        .card-text {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: #034a5b;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+    </style>
+
+    <div class="posts-container">
+        <h1>Posts</h1>
+
+        <% if (posts?.length> 0) { %>
+            <% posts.forEach(post=> { %>
+                <div class="post">
+                    <h2><%- post.title %></h2>
+
+                    <% if (post.images?.length) { %>
+                        <div class="image-container">
+                            <% post.images.forEach(image=> { %>
+                                <img src="<%- image.url %>" alt="Post Image">
+                                <% }) %>
+                        </div>
+                        <% } %>
+                            <p class="card-text">
+                                by <%= post.author.username %> on <%= post.createdAt.toDateString() %>
+                            </p>
+                            <a href="/posts/<%= post._id %>" class="read-more">Read More</a>
+                </div>
+                <% }) %>
+                    <% } else { %>
+                        <p class="no-posts">No posts found</p>
+                        <% } %>
+    </div>
+
+    <%- include('partials/footer') %>

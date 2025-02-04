@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bona+Nova+SC:ital,wght@0,400;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+        :root {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-image: url('/images/pexels-pixabay-531880.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: repeat;
+            height: 100vh;
+        }
+
+        .nav {
+            position: relative;
+            width: 430px;
+            height: 70px;
+            background-color: rgb(25, 59, 43);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            margin-top: 20px;
+        }
+
+        .nav ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 350px;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .nav ul li {
+            position: relative;
+            list-style: none;
+            width: 70px;
+            height: 70px;
+            z-index: 1;
+        }
+
+        .nav ul li a {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .nav ul li a .icon {
+            position: relative;
+            display: block;
+            line-height: 55px;
+            font-size: 1.5em;
+            text-align: center;
+            transition: .5s;
+            color: #fff;
+        }
+
+        .nav ul li a .text {
+            position: absolute;
+            font-size: 0.75rem;
+            letter-spacing: 0.06rem;
+            color: #fff;
+            font-weight: 400;
+            transition: 0.5s;
+            opacity: 0.3;
+            transform: translateY(25px);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <ul>
+            <% if (user) { %>
+                <li class="list active"><a href="/">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="text">
+                            Home
+                        </span>
+                    </a>
+                </li>
+                <li class="list"><a href="/user/profile">
+                        <span class="icon">
+                            <ion-icon name="person-outline"></ion-icon>
+                        </span>
+                        <span class="text">
+                            Profile
+                        </span>
+                    </a></li>
+                <li class="list"><a href="/posts/add">
+                        <span class="icon">
+                            <ion-icon name="add-outline"></ion-icon>
+                        </span>
+                        <span class="text">
+                            Add Post
+                        </span>
+                    </a></li>
+                <li class="list"><a href="/posts">
+                        <span class="icon">
+                            <ion-icon name="newspaper-outline"></ion-icon>
+                        </span>
+                        <span class="text">
+                            Posts
+                        </span>
+                    </a></li>
+                <li class="list"><a href="/auth/logout">
+                        <span class="icon">
+                            <ion-icon name="log-out-outline"></ion-icon>
+                        </span>
+                        <span class="text">
+                            Logout
+                        </span>
+                    </a></li>
+                <% } else { %>
+                    <li class="list"><a href="/">
+                            <span class="icon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </span>
+                            <span class="text">
+                                Home
+                            </span>
+                        </a></li>
+                    <li class="list"><a href="/auth/register"><span class="icon">
+                                <ion-icon name="person-outline"></ion-icon>
+                            </span>
+                            <span class="text">
+                                Register
+                            </span></a></li>
+                    <li class="list"><a href="/auth/login"><span class="icon">
+                                <ion-icon name="log-in-outline"></ion-icon>
+                            </span>
+                            <span class="text">
+                                Login
+                            </span></a></li>
+                    <li class="list"><a href="/posts"><span class="icon">
+                                <ion-icon name="newspaper-outline"></ion-icon>
+                            </span>
+                            <span class="text">
+                                Posts
+                            </span></a></li>
+                    <% } %>
+                        <div class="indicator"></div>
+        </ul>
+    </nav>
+</body>
+
+</html>

@@ -1,0 +1,241 @@
+<%- include('partials/header', { title: "Post Details" , user: user }) %>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding-top: 10px;
+            min-height: 100vh;
+        }
+
+        header {
+            box-sizing: border-box;
+            padding: 0 20px;
+            max-width: 100vw;
+        }
+
+        .nav {
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .container {
+            width: 500px;
+            margin: 80px auto 20px;
+            background: rgba(170, 240, 253, 0.5);
+            backdrop-filter: blur(2px);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #034a5b;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #10697f;
+        }
+
+        /* Image grid layout (first row-wise, then column-wise) */
+        .images-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .images-container img {
+            max-width: 30%;
+            /* Ensures three images per row */
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            justify-content: center;
+        }
+
+        .actions a,
+        .button {
+            padding: 8px 12px;
+            text-decoration: none;
+            background-color: #034a5b;
+            color: #fff;
+            border-radius: 4px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .actions a:hover,
+        .button:hover {
+            background-color: #135e71;
+        }
+
+        /* Comments Section */
+        .comments-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(171, 214, 225, 0.5);
+            border-radius: 5px;
+        }
+
+        .comment {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .comment small {
+            color: #034a5b;
+            font-weight: bold;
+        }
+
+        .comment p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .comment-form {
+            margin-top: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #a6a4a4;
+        }
+
+        input[type="submit"] {
+            margin-top: 10px;
+            display: inline-block;
+            background-color: #034a5b;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #135e71;
+        }
+
+        .login-prompt {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-prompt a {
+            background-color: #034a5b;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-prompt a:hover {
+            text-decoration: underline;
+        }
+
+        .side {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+
+        }
+        
+    </style>
+
+    <div class="container">
+        <h1>
+            <%= post?.title %>
+        </h1>
+        <p>
+            <%= post?.content %>
+        </p>
+
+        <% if (post?.images?.length> 0) { %>
+            <div class="images-container">
+                <% post.images.forEach((image)=> { %>
+                    <img src="<%= image.url %>" alt="<%= image.public_id %>">
+                    <% }) %>
+            </div>
+            <% } %>
+
+                <% if (user?._id?.equals(post?.author?._id?.toString())) { %>
+                    <div class="actions">
+                        <a href="/posts/<%= post?._id %>/edit">Edit</a>
+                        <form action="/posts/<%= post?._id %>?_method=DELETE" method="POST">
+                            <button class="button" type="submit">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                    <% } %>
+
+                        <!-- Comments Section -->
+                        <div class="comments-section">
+                            <h3 style="color: #034a5b;">Comments</h3>
+
+                            <% if (post?.comments?.length> 0) { %>
+                                <% post.comments.forEach((comment)=> { %>
+                                    <div class="comment">
+                                        <small>
+                                            <%= comment?.author?.username %>
+                                        </small>
+                                        <p>
+                                            <%= comment?.content %>
+                                        </p>
+                                        <% if (user && user._id.toString()===comment.author._id.toString()){ %>
+                                            <div class="side">
+                                                <div class="actions">
+                                                    <a href="/comments/<%= comment?._id %>/edit">
+                                                        Edit
+                                                    </a>
+                                                    <form action="/comments/<%= comment?._id %>?_method=DELETE"
+                                                        method="POST">
+                                                        <button class="button" type="submit">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <p>No comments yet</p>
+                                            <% } %>
+
+                                                <!-- Comment Form -->
+                                                <% if (user) { %>
+                                                    <form class="comment-form" action="/posts/<%= post?._id %>/comments"
+                                                        method="post">
+
+                                                        <textarea name="content" id="comment-area" rows="4"
+                                                            placeholder="Add a comment..." required></textarea>
+                                                        <input type="submit" value="Comment">
+                                                    </form>
+                                                    <% } else { %>
+                                                        <p class="login-prompt">Please <a href="/auth/login">Login</a>
+                                                            to comment</p>
+                                                        <% } %>
+                        </div>
+    </div>
+
+    <%- include('partials/footer') %>

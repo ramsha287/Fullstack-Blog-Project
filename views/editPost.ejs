@@ -1,0 +1,109 @@
+<%- include('partials/header', { title: "Edit Post" , user: user }) %>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav{
+            margin-top: 120px;
+        }
+
+        .container {
+            margin-top: 20px;
+            background-color: rgba(3, 81, 91, 0.5);
+            backdrop-filter: blur(2px);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            -webkit-text-stroke: 1px #034a5b;
+            font-weight: bold;
+        }
+
+        .contents {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #01252d;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .image-grid img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #034a5b;
+            color: #fff;
+            padding: 10px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: rgba(36, 82, 88, 0.5);
+        }
+    </style>
+
+    <div class="container">
+        <h1>Edit Post</h1>
+        <form action="/posts/<%= post._id %>?_method=PUT" method="post"
+            enctype="multipart/form-data">
+            <div class="contents">
+                <label for="title">Title</label>
+                <input value="<%= post.title %>" type="text" name="title" placeholder="Title">
+
+                <label for="content">Content</label>
+                <input value="<%= post.content %>" type="text" name="content" placeholder="Content" row="5">
+
+                <label for="images">Images</label>
+                <input type="file" name="images" multiple>
+
+                <div class="image-grid">
+                    <!-- Loop through images -->
+                    <% post.images.forEach((image)=> { %>
+                        <img src="<%= image.url %>" alt="<%= image.public_id %>">
+                        <% }) %>
+                </div>
+
+                <button class="button" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+
+    <%- include('partials/footer') %>
