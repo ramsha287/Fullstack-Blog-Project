@@ -37,4 +37,5 @@ Multer and Cloudinary for image uploading (if applicable).
 
 ### Deployment:
 
-Deployed on Render
+[My Muse - Full Stack Blog App](https://fullstack-blog-project-airn.onrender.com/)
+
